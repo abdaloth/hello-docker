@@ -22,7 +22,6 @@ def generate_ascii(path, cols, font_scale):
     print()
 
 def pxl2ascii(pxl):
-    global ascii_greyscale
     return ascii_greyscale[round(pxl*69)]
 
 
