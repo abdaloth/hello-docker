@@ -6,7 +6,7 @@ from skimage.color import rgba2rgb, rgb2gray
 from skimage.exposure import rescale_intensity
 from skimage.transform import downscale_local_mean
 
-ascii_greyscale = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+ascii_greyscale = r"$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 
 
 @click.command()
@@ -16,9 +16,10 @@ ascii_greyscale = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI
 def generate_ascii(path, cols, font_scale):
     img = imread(path)
     asciimge = image2ascii(img, cols, font_scale)
+    print()
     for row in asciimge:
         print(row)
-
+    print()
 
 def pxl2ascii(pxl):
     global ascii_greyscale
@@ -28,10 +29,8 @@ def pxl2ascii(pxl):
 def image2ascii(img, cols=240, font_scale=0.43):
     if (img.shape[-1] == 4):
         grey_img = rgb2gray(rgba2rgb(img))
-        pass
     else:
         grey_img = rgb2gray(img)
-        pass
 
     grey_img = rescale_intensity(grey_img)
     h, w = grey_img.shape
@@ -45,8 +44,6 @@ def image2ascii(img, cols=240, font_scale=0.43):
         for j in range(w-1): 
             pxl = downsampled_img[i,j]
             asciimg[i] += pxl2ascii(pxl)
-            pass
-        pass
     return asciimg
 
 
